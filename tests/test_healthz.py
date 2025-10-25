@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from src.web.app import app
+from epistemology_engine.web.app import app
 def test_healthz():
     c = TestClient(app)
     r = c.get("/healthz")
