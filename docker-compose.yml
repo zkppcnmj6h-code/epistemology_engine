@@ -18,3 +18,32 @@ services:
       - postgres_data:/var/lib/postgresql/data
 volumes:
   postgres_data:
+
+  dagster-webserver:
+    image: python:3.12-slim
+    container_name: ee_dagster_web
+    working_dir: /app
+    command: bash -lc "pip install -r requirements.txt && dagster-webserver -h 0.0.0.0 -p 3000 -m src.orchestration.repo"
+    env_file: config/.env
+    volumes: ["./:/app"]
+    ports: ["3000:3000"]
+    depends_on: [db]
+
+  dagster-daemon:
+    image: python:3.12-slim
+    container_name: ee_dagster_daemon
+    working_dir: /app
+    command: bash -lc "pip install -r requirements.txt && dagster-daemon run"
+    env_file: config/.env
+    volumes: ["./:/app"]
+    depends_on: [db, dagster-webserver]
+
+  api:
+    image: python:3.12-slim
+    container_name: ee_api
+    working_dir: /app
+    command: bash -lc "pip install -r requirements.txt && uvicorn src.web.app:app --host 0.0.0.0 --port 8000 --reload"
+    env_file: config/.env
+    volumes: ["./:/app"]
+    ports: ["8000:8000"]
+    depends_on: [db]
