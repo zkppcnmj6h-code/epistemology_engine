@@ -1,4 +1,13 @@
-[
-  {"topic_id": "PFC_101", "name": "Blueprint Reading Basics", "parent_id": null, "tags": ["construction"]},
-  {"topic_id": "PFC_101_L01", "name": "Lesson 1: Intro", "parent_id": "PFC_101", "tags": ["construction", "blueprint"]}
-]
+{
+  "version": "v1",
+  "taxonomy": [
+    {"path": "root", "children": [
+      {"path": "root/operations"},
+      {"path": "root/specs"},
+      {"path": "root/contracts"},
+      {"path": "root/construction", "children": [
+        {"path": "root/construction/blueprint_reading", "topic_id_alias": "PFC_101"}
+      ]}
+    ]}
+  ]
+}
