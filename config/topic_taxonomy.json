@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "taxonomy": [
+    {"path": "root", "children": [
+      {"path": "root/operations"},
+      {"path": "root/specs"},
+      {"path": "root/contracts"},
+      {"path": "root/construction", "children": [
+        {"path": "root/construction/blueprint_reading", "topic_id_alias": "PFC_101"}
+      ]}
+    ]}
+  ]
+}

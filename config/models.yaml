@@ -1,0 +1,14 @@
+models:
+  - model_key: "text-embedding-3-large@openai" # Added provider for clarity
+    family: "openai"
+    modality: "text"
+    dims: 3072
+    provider: "openai"
+    released_at: "2024-01-25T00:00:00Z" # Example date
+  - model_key: "text-embedding-3-small@openai"
+    family: "openai"
+    modality: "text"
+    dims: 1536
+    provider: "openai"
+    released_at: "2024-01-25T00:00:00Z" # Example date
+  # Add entries for GPT-5 and Gemini 2.5 Pro later as needed

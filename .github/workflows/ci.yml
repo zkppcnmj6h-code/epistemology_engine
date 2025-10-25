@@ -1,0 +1,49 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: pgvector/pgvector:pg17
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_DB: epistemology_engine
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd="pg_isready -U user -d epistemology_engine"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      DATABASE_URL: postgresql://user:password@localhost:5432/epistemology_engine
+      PGUSER: user
+      PGPASSWORD: password
+      PGHOST: localhost
+      PGPORT: 5432
+      PGDATABASE: epistemology_engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install system psql client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: DB migration check
+        run: |
+          until pg_isready -h localhost -p 5432 -U user; do sleep 1; done
+          psql "$DATABASE_URL" -f db/migrations/V0001__initial_schema.sql
+      - name: Lint (ruff)
+        run: ruff check .
+      - name: Type check (mypy)
+        run: mypy src/
+      - name: Unit tests
+        run: pytest -q
