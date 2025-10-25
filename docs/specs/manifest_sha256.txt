@@ -1,0 +1,2 @@
+673ee352a6ad85a0b6f4bca6569a7b017a2620a49b4192b2926d3ebdf656ac76  SPEC-001_Epistemology_Engine_v1.1_FULL.pdf
+1dc918ed9099bce1afff42e33408e3f4a683caa44d8b5d40e19854818b449081  SPEC-001_GoNoGo_Verification.pdf
