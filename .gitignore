@@ -1,0 +1,13 @@
+
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+.DS_Store
+
+data/inputs/
+data/transcripts/
+logs/
+
+*.lock
