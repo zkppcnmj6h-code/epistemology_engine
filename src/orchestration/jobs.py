@@ -1,14 +1,13 @@
 # src/orchestration/jobs.py
 from dagster import job, define_asset_job, AssetSelection
-from src.orchestration.assets.ingest import ingest # Assuming ingest is defined as @op for now
+from src.orchestration.assets.ingest import ingest
 from src.orchestration.assets.ocr_parse import ocr_parse
 
 # Option 1: If using @op
 @job(name="ingest_and_parse_document")
 def ingest_job():
     """Defines the M1 pipeline: Ingest source URI -> Parse/OCR pages."""
-    doc_id = ingest() # This assumes ingest has no required inputs defined in @op directly
-                     # We'll configure the input 'source_uri' via run config
+    doc_id = ingest()
     ocr_parse(doc_id)
 
 # Option 2: If defining using Assets (more modern Dagster)
