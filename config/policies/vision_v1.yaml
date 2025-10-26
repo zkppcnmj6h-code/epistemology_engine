@@ -1,0 +1,14 @@
+name: "vision_v1"
+body:
+  version: "vision_v1"
+  max_dpi: 300
+  text_density_hi: 0.65 # Threshold for potentially using lower DPI
+  tiling:
+    enable: true
+    grid_by_longest_side:
+      - {threshold_px: 2200, grid: [2, 2]}
+      - {threshold_px: 3300, grid: [3, 3]}
+  cache_key_fields: ["content_hash", "policy_rev", "model_key"]
+  roi: # Region of Interest / Feature Extraction hints
+    table_detector: "on"
+    math_detector: "off"
