@@ -17,6 +17,7 @@ services:
       retries: 20
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./db/migrations:/app/db/migrations
 
   dagster-webserver:
     image: python:3.12-slim
