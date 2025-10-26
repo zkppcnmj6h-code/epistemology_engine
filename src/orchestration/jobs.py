@@ -1,16 +1,10 @@
-# src/orchestration/jobs.py
-from dagster import job, define_asset_job, AssetSelection
-from src.ingest import ingest
-from .assets.ocr_parse import ocr_parse
+"""
+Compatibility shim to reference the primary Dagster job definitions.
 
-# Option 1: If using @op
-def ingest_job():
-    """Defines the M1 pipeline: Ingest source URI -> Parse/OCR pages."""
-    doc_id = ingest()
-    ocr_parse(doc_id)
+The authoritative job definitions now live under the top-level ``src`` package.
+This module simply re-exports them so any legacy imports continue to work.
+"""
 
-# Option 2: If defining using Assets (more modern Dagster)
-# Define ingest and ocr_parse using @asset instead of @op
-# Then create a job targeting the final asset:
-# parse_job = define_asset_job(name="parse_document_job", selection=AssetSelection.keys("parsed_document_asset"))
-# For M1, using @op and the job above is simpler.
+from src.orchestration.jobs import ingest_job as ingest_job  # noqa: F401
+
+__all__ = ["ingest_job"]
