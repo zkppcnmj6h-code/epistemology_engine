@@ -9,7 +9,7 @@ from typing import Optional, TypedDict
 from urllib.parse import urlparse
 from uuid import uuid4
 
-from dagster import DagsterLogManager, In, Nothing, OpExecutionContext, op
+from dagster import DagsterLogManager, In, Nothing, op
 
 from src.clients.db_client import db_session, execute_sql, fetch_one_sql
 
@@ -67,7 +67,7 @@ def _get_local_path_from_uri(uri: str, log: DagsterLogManager) -> Optional[Path]
 
 
 @op(ins={"doc_id": In(str)})
-def ocr_parse(context: OpExecutionContext, doc_id: str) -> Nothing:
+def ocr_parse(context, doc_id: str) -> Nothing:
     log: DagsterLogManager = context.log
     run_id = context.run_id
 
